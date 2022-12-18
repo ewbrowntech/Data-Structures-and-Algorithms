@@ -41,7 +41,7 @@ class LinkedList:
     # - data: The data a node must contain to qualify for removal
     def remove(self, data):
         current = self.head
-        if current is not None and current.data == data:  # If a hit is found at the head, move the head forward one element
+        if current is not None and current.data == data:  # If a match is found at the head, move the head forward
             self.head = current.next
             current = None
             return
@@ -78,5 +78,6 @@ linked_list.append("list")
 linked_list.append("probably")
 print_list(linked_list)
 
+linked_list.remove("possibly")
 linked_list.remove("probably")
 print_list(linked_list)
