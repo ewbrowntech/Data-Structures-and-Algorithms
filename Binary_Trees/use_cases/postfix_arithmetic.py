@@ -10,7 +10,7 @@ TODO: make construct IR recursive such that it can handle long expressions with 
 """
 
 """
-Potential Application:
+Use Case:
 In compiler design, an abstract syntax tree (AST) is a key step between the parsing of source code and the generation of 
 an intermediate representation (IR). ASTs represent multi-operator expressions as nodes containing operators with their
 operands as leaf nodes. To generate an IR, the subtree of the AST containing the expression must be read from bottom-up.
@@ -46,14 +46,17 @@ def construct_IR(postfixExpression):
 
     # Otherwise, we need to handle the expression manually
     stack = []
+    regIterator = 0
     for element in postfixExpression:
-        stack.append(element)
-        if element in ops:
+        if element not in ops:
+            stack.append(element)
+        else:
+            regName = "reg" + str(regIterator)
+            ir.append(regName + " = " + str(stack[len(stack) - 2]) + ' ' + element + ' ' + str(stack[len(stack) - 1]))
             stack.pop()
-            ir.append("reg = " + str(stack[len(stack) - 2]) + ' ' + element + ' ' + str(stack[len(stack) - 1]))
             stack.pop()
-            stack.pop()
-            stack.append("reg")
+            stack.append(regName)
+            regIterator += 1
         continue
     return ir
 
@@ -78,17 +81,31 @@ def evaluate_expression(postfixExpression):
     return stack[0]
 
 # ------------------------------
-# Driver
+# Examples
 # ------------------------------
-ast = TreeNode('+', TreeNode(2), TreeNode('*', TreeNode(3), TreeNode(4)))  # 2 + 3 * 4
-print("Abstract Syntax Tree:")
-print_tree(ast)
+def drive_example(ast):
+    print("Abstract Syntax Tree:")
+    print_tree(ast)
+    postfixExpression = traverse_AST(ast)
+    print("Postfix Expression:\n" + str(postfixExpression) + "\n")
+    ir = construct_IR(postfixExpression)
+    print("Intermediate Representation:")
+    for element in ir:
+        print(element)
+    print()
 
-postfixExpression = traverse_AST(ast)
-print("Postfix Expression:\n" + str(postfixExpression) + "\n")
+# Example 1: 2 + 3 * 4
+print("------------------------------\n" + "Example1:\t2 + 3 * 4\n" + "------------------------------")
+ast1 = TreeNode('+', TreeNode(2), TreeNode('*', TreeNode(3), TreeNode(4)))
+drive_example(ast1)
 
-ir = construct_IR(postfixExpression)
-print("Intermediate Representation:")
-for element in ir:
-    print(element)
-print()
+# Example 2: var1 * var2 + var3 * var4
+print("------------------------------\n" + "Example2:\tvar1 * var2 + var3 * var4\n" + "------------------------------")
+ast2 = TreeNode('+', TreeNode('*', TreeNode('var1'), TreeNode('var2')),
+                TreeNode('*', TreeNode('var3'), TreeNode('var4')))
+drive_example(ast2)
+
+
+
+
+
