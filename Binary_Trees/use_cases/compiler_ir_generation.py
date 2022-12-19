@@ -1,12 +1,11 @@
 from Binary_Trees.binary_tree import TreeNode, print_tree
 import operator
 """
-postfix_arithmetic.py
+compiler_ir_generation.py
 @Author - Ethan Brown - ewbrowntech@gmail.com
 @Version - 19 DEC 22
 
 Performing arithmetic via the use of postorder traversal of an abstract syntax tree
-TODO: make construct IR recursive such that it can handle long expressions with multiple variables
 """
 
 """
