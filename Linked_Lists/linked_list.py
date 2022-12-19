@@ -1,5 +1,5 @@
 '''
-linked-list.py
+linked_list.py
 @Author - Ethan Brown - ewbrowntech@gmail.com
 @Version - 17 DEC 22
 
