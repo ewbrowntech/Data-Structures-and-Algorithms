@@ -1,5 +1,5 @@
 """
-binary-tree.py
+binary_tree.py
 @Author - Ethan Brown - ewbrowntech@gmail.com
 @Version - 18 DEC 22
 
@@ -17,7 +17,6 @@ class TreeNode:
         self.left = left
         self.right = right
 
-
 # ------------------------------
 # Printing a tree
 # ------------------------------
@@ -26,10 +25,3 @@ def print_tree(root, level=0):
         print_tree(root.right, level + 1)
         print(' ' * 4 * level + '==', root.value)
         print_tree(root.left, level + 1)
-
-
-# ------------------------------
-# Example
-# ------------------------------
-binary_tree = TreeNode(1, TreeNode(2, TreeNode(3), TreeNode(4)), TreeNode(6, TreeNode(7), TreeNode(8)))
-print_tree(binary_tree)
